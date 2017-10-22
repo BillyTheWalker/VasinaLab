@@ -6,6 +6,7 @@ import interfaces.Function;
  * Created by Kishka on 22.10.2017.
  */
 public class Function_1 implements Function {
+    //    x є [0,1]
     public double calculate(double x) {
         return (Math.pow(2, x) + 5 * x - 3);
     }

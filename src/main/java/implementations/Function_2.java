@@ -6,6 +6,7 @@ import interfaces.Function;
  * Created by Kishka on 22.10.2017.
  */
 public class Function_2 implements Function {
+    //    x є [2,3]
     public double calculate(double x) {
         return (Math.log(1.5 * x) - (1.7 * x) + 3.0);
     }
