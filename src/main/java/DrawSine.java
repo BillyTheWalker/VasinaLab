@@ -19,7 +19,7 @@ class DrawSine extends JPanel {
         super.paintComponent(g);
         int x_step = (int) (Lab_1.width / (Math.abs(Lab_1.x_min) + Math.abs(Lab_1.x_max)));
         int y_step = (int) (Lab_1.height / (Math.abs(Lab_1.y_min) + Math.abs(Lab_1.y_max)));
-        int x_zero = (Lab_1.y_min <= 0 && Lab_1.y_max >= 0) ? (int) (Math.abs(Lab_1.y_max) * x_step) : ((Lab_1.y_max < 0) ? 0 : Lab_1.height);
+        int x_zero = (Lab_1.y_min <= 0 && Lab_1.y_max >= 0) ? (int) (Math.abs(Lab_1.y_max) * y_step) : ((Lab_1.y_max < 0) ? 0 : Lab_1.height);
         int y_zero = (Lab_1.x_min <= 0 && Lab_1.x_max >= 0) ? (int) (Math.abs(Lab_1.x_min) * x_step) : ((Lab_1.x_max < 0) ? Lab_1.width : 0);
 
         g.drawLine(0, x_zero, Lab_1.width, x_zero);
@@ -51,7 +51,7 @@ class DrawSine extends JPanel {
         }
 
         Polygon p = new Polygon();
-        drawPlot(x_zero, y_zero, p, new Function_2());
+        drawPlot(x_zero, y_zero, p, function);
         g.drawPolyline(p.xpoints, p.ypoints, p.npoints);
     }
 
