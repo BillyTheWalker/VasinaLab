@@ -1,5 +1,3 @@
-package interfaces;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -16,7 +14,7 @@ public class System_Equation {
 
     public void methodGauss() {
         List<List<Double>> c = new ArrayList<List<Double>>();
-        for (int k = 0; k < a.size(); k++) {
+        for (int k = 0; k < a.size()-1; k++) {
             c.add(new ArrayList<Double>());
             for (int i = 0; i < k; i++) {
                 c.get(k).add(i, 1.0);
@@ -32,20 +30,22 @@ public class System_Equation {
             for (int i = k; i < a.size();i++) {
                 a.get(i).set(k, .0);
             }
-            for (List<Double> list : a) {
-                for (Double el : list) {
-                    System.err.print(" " + format.format(el));
-                }
-                System.err.println("");
-            }
-            System.err.println("");
-            for (List<Double> list : c) {
-                for (Double el : list) {
-                    System.err.print(" " + format.format(el));
-                }
-                System.err.println("");
+            x.add(.0);
+        }
+
+
+
+        printMatrix(a);
+        printMatrix(c);
+    }
+
+    private void printMatrix(List<List<Double>> c) {
+        for (List<Double> list : c) {
+            for (Double el : list) {
+                System.err.print(" " + format.format(el));
             }
             System.err.println("");
         }
+        System.err.println("");
     }
 }

@@ -1,7 +1,4 @@
-import interfaces.System_Equation;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kishka on 22.10.2017.
