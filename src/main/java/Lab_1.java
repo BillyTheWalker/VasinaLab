@@ -34,6 +34,7 @@ public class Lab_1 extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
         LabUtils.bisection(x_left, x_right, e, function);
         LabUtils.hord(x_left, x_right, x_left, e, function);
         LabUtils.hord_touch(x_left, x_right, x_left, e, function);
