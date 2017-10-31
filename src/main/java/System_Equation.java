@@ -9,12 +9,12 @@ import java.util.List;
 public class System_Equation {
     private static NumberFormat format = new DecimalFormat("#0.000000");
 
-    public List<Double> x = new ArrayList<>();
-    public List<List<Double>> a = new ArrayList<>();
-    public List<List<Double>> at = new ArrayList<>();
-    public List<List<Double>> alDop = new ArrayList<>();
-    List<List<Double>> b = new ArrayList<>();
-    List<List<Double>> aa = new ArrayList<>();
+    public List<Double> x = new ArrayList<Double>();
+    public List<List<Double>> a = new ArrayList<List<Double>>();
+    public List<List<Double>> at = new ArrayList<List<Double>>();
+    public List<List<Double>> alDop = new ArrayList<List<Double>>();
+    List<List<Double>> b = new ArrayList<List<Double>>();
+    List<List<Double>> aa = new ArrayList<List<Double>>();
 
     public void methodGauss() {
         copy();
@@ -69,13 +69,19 @@ public class System_Equation {
 
     private void methodMatrix() {
         copy();
-        x = new ArrayList<>();
-        b = new ArrayList<>();
+        x = new ArrayList<Double>();
+        b = new ArrayList<List<Double>>();
 
     }
 
     private void getAT(){
-        for()
+        for(int i = 0; i < aa.size(); i++){
+            List<Double> tmp = new ArrayList<Double>();
+            for(int j = 0; j < a.get(0).size()-1;j++){
+                tmp.add(a.get(j).get(i));
+            }
+            at.add(tmp);
+        }
     }
 
     private double vyzn(List<List<Double>> lists) {
@@ -126,7 +132,7 @@ public class System_Equation {
     }
 
     private void fillAs() {
-        List<Double> list = new ArrayList<>();
+        List<Double> list = new ArrayList<Double>();
         for (int i = 0; i < a.size(); i++) {
             Double d = .0;
             for (int j = 0; j < a.get(i).size(); j++) {
@@ -137,9 +143,9 @@ public class System_Equation {
     }
 
     private void copy() {
-        aa = new ArrayList<>();
+        aa = new ArrayList<List<Double>>();
         for (List<Double> list : a) {
-            List<Double> doubleList = new ArrayList<>();
+            List<Double> doubleList = new ArrayList<Double>();
             doubleList.addAll(list);
             aa.add(doubleList);
         }
