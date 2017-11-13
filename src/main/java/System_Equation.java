@@ -57,14 +57,14 @@ public class System_Equation {
 //        System.err.println("b: ");
 //        printMatrix(b);
         Double res = .0;
-        for (List<Double> list : a) {
-            for (int i = 0; i < x.size(); i++) {
-//                System.err.print("(" + format.format(list.get(i)) + ")*(" + format.format(x.get(i)) + ")+");
-//                System.err.println("-----------a.get(0).get(i) * x.get(i): " + (list.get(i) * x.get(i)));
-                res += list.get(i) * x.get(i);
-//                System.err.println("res: " + res);
-            }
-        }
+//        for (List<Double> list : a) {
+//            for (int i = 0; i < x.size(); i++) {
+////                System.err.print("(" + format.format(list.get(i)) + ")*(" + format.format(x.get(i)) + ")+");
+////                System.err.println("-----------a.get(0).get(i) * x.get(i): " + (list.get(i) * x.get(i)));
+//                res += list.get(i) * x.get(i);
+////                System.err.println("res: " + res);
+//            }
+//        }
     }
 
     private void setX() {
@@ -124,43 +124,19 @@ public class System_Equation {
         System.err.println("");
     }
 
-//    void Jacobi (int N, double** A, double* F, double* X)
-//    {
-//	double* TempX = new double[N];
-//        double norm; // норма, определяемая как наибольшая разность компонент столбца иксов соседних итераций.
-//
-//        do {
-//            for (int i = 0; i < N; i++) {
-//                TempX[i] = F[i];
-//                for (int g = 0; g < N; g++) {
-//                    if (i != g)
-//                        TempX[i] -= A[i][g] * X[g];
-//                }
-//                TempX[i] /= A[i][i];
-//            }
-//            norm = fabs(X[0] - TempX[0]);
-//            for (int h = 0; h < N; h++) {
-//                if (fabs(X[h] - TempX[h]) > norm)
-//                    norm = fabs(X[h] - TempX[h]);
-//                X[h] = TempX[h];
-//            }
-//        } while (norm > eps);
-//        delete[] TempX;
-//    }
-
     public void jakobi() {
         int now, old, tmp, i, j, N;
-        int m = 3;
+        int m = 3, mm = 2;
         Double max, S;
         List<List<Double>> bb = new ArrayList<>();
         List<List<Double>> xx = new ArrayList<>();
-        getNearX(m, bb);
+        bb = getNearX(m, bb);
         old = 0;
         now = 1;
         N = 0;
         for (i = 0; i < m; i++) {
             xx.add(new ArrayList<>());
-            xx.get(i).add(bb.get(i).get(m));
+            xx.get(i).add(bb.get(i).get(mm));
         }
         do {
             for (i = 0; i < m; i++) {
@@ -169,9 +145,9 @@ public class System_Equation {
                     S = S + bb.get(i).get(j) * xx.get(j).get(old);
                 }
                 if (xx.get(i).size() == now) {
-                    xx.get(i).add(S + bb.get(i).get(m));
+                    xx.get(i).add(S + bb.get(i).get(mm));
                 }
-                xx.get(i).set(now, S + bb.get(i).get(m));
+                xx.get(i).set(now, S + bb.get(i).get(mm));
             }
             max = Math.abs(xx.get(0).get(now) - xx.get(0).get(old));
             for (i = 1; i < m; i++) {
@@ -191,10 +167,10 @@ public class System_Equation {
         System.err.println("max = " + format.format(max));
     }
 
-    private void getNearX(int m, List<List<Double>> bb) {
+    private List<List<Double>> getNearX(int m, List<List<Double>> bb) {
         int i;
         int j;
-        for (i = 0; i < a.size()-2; i++) {
+        for (i = 0; i < a.size(); i++) {
             bb.add(new ArrayList<>());
             for (j = 0; j < m + 1; j++) {
                 if (i != j)
@@ -208,66 +184,37 @@ public class System_Equation {
                 }
             }
         }
+        return bb;
     }
 
-//    private List<Double> getNearX(List<Double> x) {
-//        for (int i = 0; i < a.size(); i++) {
-//            x.add(a.get(i).get(a.size() - 1) / a.get(i).get(i));
-//        }
-//        return x;
-//    }
-
     public void seidel() {
-//        System.err.println("");
-//        System.err.println("");
-//        System.err.println("");
-//        List<Double> xx = new ArrayList<>();
-//        List<Double> xNew = new ArrayList<>();
-//        int n=0;
-//        xx = getNearX(xx);
-//        xNew = copyV(xNew, xx);
-//        printVector(xx);
-//        do {
-//            xx = copyV(xx, xNew);
-//            for (int i = 0; i < xx.size(); i++) {
-//                xNew.set(i,
-//                        (a.get(i).get(a.size() - 1) - sum(a.get(i), xNew, 0, i) - sum(a.get(i), xx, i + 1, xx.size())) /
-//                                a.get(i).get(i));
-//            }
-//            printVector(xNew);
-//            n++;
-//        } while ((Math.sqrt(sum(xNew, xx)) >= e)&&(n<3));
-//        System.err.println("\n\nSeidel\n");
-//        printVector(xNew);
-        int i,j,N;
-        int m=3;
+        int i, j, N;
+        int m = 3, mm = 2;
         Double max, S;
         List<List<Double>> bb = new ArrayList<>();
-        List<List<Double>> xx = new ArrayList<>();
-        getNearX(m,bb);
-        N=0;
+        List<Double> xx = new ArrayList<>();
+        bb = getNearX(m, bb);
+        N = 0;
         for (i = 0; i < m; i++) {
-            xx.add(new ArrayList<>());
-            xx.get(i).add(bb.get(i).get(m));
+            xx.add(bb.get(i).get(mm));
         }
-        do{
-            max=.0;
-            for (i=0;i<m;i++) {
+        do {
+            max = .0;
+            for (i = 0; i < m; i++) {
                 S = .0;
                 for (j = 0; j < m; j++)
                     S = S + bb.get(i).get(j) * xx.get(j);
-                if (Math.abs(xx[i]-S-b[i][m])>max)
-                    max=Math.abs(xx[i]-S-b[i][m]);
-                xx[i]=S+b[i][m];
+                if (Math.abs(xx.get(i) - S - bb.get(i).get(mm)) > max)
+                    max = Math.abs(xx.get(i) - S - bb.get(i).get(mm));
+                xx.set(i, S + bb.get(i).get(mm));
             }
             N++;
-        }while((max>=e)&&(k>N));
-        if(N<k) {
-            for (i = 0; i < m; i++)
-                System.out.print(xx[i] + "  ");
-            System.out.println("n = " + N);
-            System.out.println("max = "+max);
-        } else System.out.println("n>=k, rozviazku nemaie");
+        } while ((max >= e));
+        System.err.println("\n\nSeidel suka bliatska\n");
+        for (i = 0; i < m; i++)
+            System.err.print(format.format(xx.get(i)) + "  ");
+        System.err.println("\nn = " + N);
+        System.err.println("max = " + format.format(max));
     }
 
     private Double sum(List<Double> a, List<Double> b) {
